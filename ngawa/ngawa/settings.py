@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-dw1&n9_t%w%cnxn!l&9&-&@s-=&rd_vi16(1@5b85s-0ai^lm9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,7 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware'
+    'django_user_agents.middleware.UserAgentMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ngawa.urls'
@@ -77,8 +78,12 @@ WSGI_APPLICATION = 'ngawa.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('ngawa_29f4'),
+        'USER': os.getenv('ngawa_29f4_user'),
+        'PASSWORD': os.getenv('uWuBzFrfKR6WtQzBmsHyFP2yj37JlMhe'),
+        'HOST': os.getenv('dpg-cvvphvre5dus73ch9hm0-a'),
+        'PORT': os.getenv('5432'),
     }
 }
 
@@ -118,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
